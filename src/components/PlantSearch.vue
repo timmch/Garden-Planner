@@ -7,7 +7,6 @@
       label="Seeds from Johnnyseeds"
       placeholder="Start typing to Search"
       prepend-icon="mdi-database-search"
-      :autofocus="true"
       return-object
     >
       <template v-slot:selection="data">

@@ -1,15 +1,20 @@
 <template>
   <v-col>
+    <router-link :to="{ name: 'Home' }">Back to Homepage</router-link>
     <h1>Add a plant</h1>
     <plant-search />
     <div v-if="selectedPlant">
-      <h4>On what date did this seed go in the&nbsp;ground?</h4>
-      <v-date-picker
-        color="primary"
-        v-model="plantDate"
-        :show-current="true"
-        :fullWidth="true"
-      />
+      <h4 ref="datepickerLabel">
+        On what date did this seed go in the&nbsp;ground?
+      </h4>
+      <div ref="datepickerHolder">
+        <v-date-picker
+          color="primary"
+          v-model="plantDate"
+          :show-current="true"
+          :fullWidth="true"
+        />
+      </div>
       <v-btn
         large
         :fullWidth="true"
@@ -32,7 +37,13 @@ export default {
   },
   computed: {
     selectedPlant() {
-      return this.$store.state.selectedPlant;
+      console.log("here aaa");
+      const plant = this.$store.state.selectedPlant;
+      if (plant) {
+        console.log("focus");
+        this.focusInput();
+      }
+      return plant;
     }
   },
   methods: {
@@ -44,6 +55,12 @@ export default {
       this.$router.push({
         name: "Home"
       });
+    },
+    focusInput() {
+      if (this.$refs.datepickerHolder) {
+        console.log("focus 2");
+        this.$refs.datepickerHolder.$el.focus();
+      }
     }
   },
   components: {

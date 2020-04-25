@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import PlantAdd from "../views/PlantAdd.vue";
+import RicksGarden from "@/views/RicksGarden.vue";
 
 Vue.use(VueRouter);
 
@@ -15,6 +16,11 @@ const routes = [
     path: "/plants/add",
     name: "AddPlant",
     component: PlantAdd
+  },
+  {
+    path: "/gardens/ricks",
+    name: "RicksGarden",
+    component: RicksGarden
   }
   // ,
   // {
