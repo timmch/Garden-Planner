@@ -1,40 +1,20 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
+import VuexPersist from "vuex-persist";
 
 Vue.use(Vuex);
+
+const vuexLocalStorage = new VuexPersist({
+  key: "vuex",
+  storage: window.localStorage
+});
 
 export default new Vuex.Store({
   state: {
     seedOptions: [],
     selectedPlant: null,
-    plants: [
-      // {
-      //   id: 1,
-      //   name: "Habaneros",
-      //   strategy: "transplant",
-      //   // sow_date: "2020-03-14",
-      //   plant_date: "2020-03-30",
-      //   secondary_name: "Organic Habanero Pepper Seed",
-      //   maturity: "80 green; 100 orange ripe"
-      // },
-      {
-        id: 2,
-        name: "Dunja",
-        strategy: "direct",
-        plant_date: "2020-03-28",
-        secondary_name: "Organic (F1) Zucchini Squash Seed",
-        maturity: "47 Days"
-      },
-      {
-        id: 3,
-        name: "Marina",
-        secondary_name: "Organic Cilantro/Coriander Seed",
-        strategy: "direct",
-        plant_date: "2020-03-28",
-        maturity: "50-55 to leaf harvest; 90-105 to seed"
-      }
-    ]
+    plants: []
   },
   mutations: {
     setSeedOptions(state, payload) {
@@ -45,6 +25,9 @@ export default new Vuex.Store({
     },
     addPlant(state, plant) {
       state.plants.push(plant);
+    },
+    removePlant(state, index) {
+      state.plants.splice(index, 1);
     }
   },
   actions: {
@@ -59,5 +42,6 @@ export default new Vuex.Store({
       }
     }
   },
-  modules: {}
+  modules: {},
+  plugins: [vuexLocalStorage.plugin]
 });

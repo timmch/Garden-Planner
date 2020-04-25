@@ -1,8 +1,9 @@
 <template>
-  <div>
-    <h1>Garden Planner</h1>
-    <plant-list :plants="plants" />
-  </div>
+  <v-row align="center" justify="center">
+    <v-col>
+      <plant-list :plants="plants" />
+    </v-col>
+  </v-row>
 </template>
 
 <script>

@@ -1,9 +1,19 @@
 <template>
   <div>
-    <router-link :to="{ name: 'AddPlant' }" class="btn"
-      >+ Add a plant</router-link
-    >
-    <plant-item v-for="plant in plants" :key="plant.id" :plant="plant" />
+    <v-col cols="12" sm="4">
+      <router-link :to="{ name: 'AddPlant' }">
+        <v-btn large color="primary">Add a plant</v-btn>
+      </router-link>
+    </v-col>
+    <v-col v-if="!plants || plants.length == 0">
+      <h3>No plants found.</h3>
+    </v-col>
+    <plant-item
+      v-for="(plant, index) in plants"
+      :key="index"
+      :plant="plant"
+      :index="index"
+    />
   </div>
 </template>
 
@@ -22,16 +32,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.btn {
-  background: white;
-  border: 1px solid #999;
-  display: inline-block;
-  color: #333;
-  border-radius: 3px;
-  font-size: 14px;
-  text-decoration: none;
-  padding: 6px 12px;
-  margin-bottom: 15px;
-}
-</style>
+<style lang="scss" scoped></style>

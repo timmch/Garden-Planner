@@ -1,8 +1,51 @@
 <template>
-  <div class="plant-item">
+  <v-col>
+    <v-card class="mx-auto" outlined>
+      <v-list-item three-line>
+        <v-list-item-content>
+          <!-- <div class="overline mb-4">OVERLINE</div> -->
+          <v-list-item-title class="headline mb-1">{{
+            plant.name
+          }}</v-list-item-title>
+          <v-list-item-subtitle class="text--primary">{{
+            plant.secondary_name
+          }}</v-list-item-subtitle>
+          <v-list-item-subtitle class="planted-information">
+            Planted on {{ plant.plant_date | formatDateString }}
+          </v-list-item-subtitle>
+        </v-list-item-content>
+
+        <v-list-item-avatar tile size="80" color="grey">
+          <img :src="plant.image" />
+        </v-list-item-avatar>
+      </v-list-item>
+
+      <v-list-item>
+        <div class="harvest">
+          <p v-for="(harvestDate, index) in harvestDates" :key="index">
+            <span class="harvestOutput" :style="harvestDate.style">{{
+              harvestDate.harvestOutput ? harvestDate.harvestOutput : "Harvest"
+            }}</span>
+            {{ harvestDate.date | timeFromNow(harvestDate.secondDate) }},
+            {{ harvestDate.date | formattedDate(harvestDate.secondDate) }}
+          </p>
+        </div>
+      </v-list-item>
+
+      <v-card-actions>
+        <v-btn text @click="removePlant">Remove</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-col>
+
+  <!-- <div class="plant-item">
+    <img :src="plant.image" alt="" />
     <div class="name">
       <h2>{{ plant.name }}</h2>
       <h4>{{ plant.secondary_name }}</h4>
+    </div>
+    <div class="planted-information">
+      <p>Planted on {{ plant.plant_date | formatDateString }}</p>
     </div>
     <div class="harvest">
       <p v-for="(harvestDate, index) in harvestDates" :key="index">
@@ -13,7 +56,7 @@
         {{ harvestDate.date | formattedDate(harvestDate.secondDate) }}
       </p>
     </div>
-  </div>
+  </div> -->
 </template>
 
 <script>
@@ -34,12 +77,17 @@ export default {
       ]
     };
   },
+
   props: {
     plant: {
       type: Object,
       default: null
+    },
+    index: {
+      type: Number
     }
   },
+
   computed: {
     basicColorsPiped() {
       return this.basicColorsArray.join("|");
@@ -129,33 +177,29 @@ export default {
 
       return harvestDates;
     }
+  },
+
+  methods: {
+    removePlant() {
+      this.$store.commit("removePlant", this.index);
+    }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.plant-item {
-  border-bottom: 2px solid #999;
-  border-radius: 3px;
-  margin: 0 0 10px;
-  padding: 2px 0 16px;
-  display: flex;
-  flex-direction: column;
-  div.name {
-    h2 {
-      margin: 0 0 2px;
-    }
-    h4 {
-      margin: 0px;
-    }
+.planted-information {
+  font-style: italic;
+}
+
+.harvest {
+  // margin-top: 10px;
+  p {
+    margin-bottom: 4px;
   }
-  div.harvest {
-    p {
-      margin: 4px 0px;
-    }
-  }
-  .harvestOutput {
-    text-transform: capitalize;
-  }
+}
+.harvestOutput {
+  text-transform: capitalize;
+  font-weight: bold;
 }
 </style>
