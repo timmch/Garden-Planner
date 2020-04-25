@@ -2,8 +2,10 @@
   <v-app>
     <v-app-bar app color="primary">
       <div class="d-flex align-center">
-        <v-icon>mdi-sprout</v-icon>
-        <h1>Garden Planner</h1>
+        <router-link :to="{ name: 'Home' }" :class="'d-flex'">
+          <v-icon>mdi-sprout</v-icon>
+          <h1>Garden Planner</h1>
+        </router-link>
       </div>
 
       <v-spacer></v-spacer>
