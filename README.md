@@ -1,4 +1,4 @@
-# garden-planner
+# Harvest Tracker
 
 ## Project setup
 ```
